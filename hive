@@ -1,0 +1,13 @@
+Hive Query Tunings:
+1.  Parameters that can be set globally in hive-site.xml:
+    • mapreduce.input.fileinputformat.split.maxsize and mapreduce.input.fileinputformat.split.minsize
+        if the min is too large, you will have too few mappers. If the max is too small, you will have too many mappers.
+    • mapreduce.tasks.io.sort.mb
+        increase this value to avoid disk spills. 
+    Set the following properties all the time:
+    • hive.optimize.mapjoin.mapreduce=true
+    • hive.optimize.bucketmapjoin=true
+    • hive.optimize.bucketmapjoin.sortedmerge=true
+    • hive.auto.convert.join=true
+    • hive.auto.convert.sortmerge.join=true
+    • hive.auto.convert.sortmerge.join.noconditionaltask=true
