@@ -11,3 +11,10 @@ Hive Query Tunings:
     • hive.auto.convert.join=true
     • hive.auto.convert.sortmerge.join=true
     • hive.auto.convert.sortmerge.join.noconditionaltask=true
+
+1. Embedded Metastore:
+In Hive by default, metastore service runs in the same JVM as the Hive service. It uses embedded derby database stored on the local file system in this mode. Thus both metastore service and hive service runs in the same JVM by using embedded Derby Database. But, this mode also has limitation that, as only one embedded Derby database can access the database files on disk at any one time, so only one Hive session could be open at a time.
+If we try to start the second session it produces an error when it attempts to open a connection to the metastore.
+
+2 . Local Metastore:
+Hive is the data-warehousing framework, so hive does not prefer single session. To overcome this limitation of Embedded Metastore, for Local Metastore was introduced. This mode allows us to have many Hive sessions i.e. many users can use the metastore at the same time. We can achieve by using any JDBC compliant like MySQL which runs in a separate JVM or different machines than that of the Hive service and metastore service which are running in the same JVM.
